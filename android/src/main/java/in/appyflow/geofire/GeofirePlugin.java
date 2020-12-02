@@ -40,13 +40,20 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
      */
     public static void registerWith(Registrar registrar) {
 
-        GeofirePlugin geofirePlugin = new GeofirePlugin();
+        GeofirePlugin geofirePluginAlpha = new GeofirePlugin();
+        GeofirePlugin geofirePluginBeta = new GeofirePlugin();
 
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "geofire");
-        channel.setMethodCallHandler(geofirePlugin);
+        MethodChannel channel = new MethodChannel(registrar.messenger(), "geofireAlpha");
+        channel.setMethodCallHandler(geofirePluginAlpha);
 
-        EventChannel eventChannel = new EventChannel(registrar.messenger(), "geofireStream");
-        eventChannel.setStreamHandler(geofirePlugin);
+        EventChannel eventChannel = new EventChannel(registrar.messenger(), "geofireStreamAlpha");
+        eventChannel.setStreamHandler(geofirePluginAlpha);
+
+        MethodChannel channel = new MethodChannel(registrar.messenger(), "geofireBeta");
+        channel.setMethodCallHandler(geofirePluginBeta);
+
+        EventChannel eventChannel = new EventChannel(registrar.messenger(), "geofireStreamBeta");
+        eventChannel.setStreamHandler(geofirePluginBeta);
 
     }
 
