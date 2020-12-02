@@ -3,44 +3,43 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class Geofire {
-  static const MethodChannel _channel = const MethodChannel('geofire');
+  MethodChannel _channel = new MethodChannel('geofire');
 
-  static const EventChannel _stream = const EventChannel('geofireStream');
+  EventChannel _stream = new EventChannel('geofireStream');
 
-  static const onKeyEntered = "onKeyEntered";
-  static const onGeoQueryReady = "onGeoQueryReady";
-  static const onKeyMoved = "onKeyMoved";
-  static const onKeyExited = "onKeyExited";
+  String onKeyEntered = "onKeyEntered";
+  String onGeoQueryReady = "onGeoQueryReady";
+  String onKeyMoved = "onKeyMoved";
+  String onKeyExited = "onKeyExited";
 
-  static Stream<dynamic> _queryAtLocation;
+  Stream<dynamic> _queryAtLocation;
 
-  static Future<bool> initialize(String path) async {
-    final dynamic r = await _channel
+  Future<bool> initialize(String path) async {
+    dynamic r = await _channel
         .invokeMethod('GeoFire.start', <String, dynamic>{"path": path});
     return r ?? false;
   }
 
-  static Future<bool> setLocation(
-      String id, double latitude, double longitude) async {
-    final bool isSet = await _channel.invokeMethod('setLocation',
+  Future<bool> setLocation(String id, double latitude, double longitude) async {
+    bool isSet = await _channel.invokeMethod('setLocation',
         <String, dynamic>{"id": id, "lat": latitude, "lng": longitude});
     return isSet;
   }
 
-  static Future<bool> removeLocation(String id) async {
-    final bool isSet = await _channel
+  Future<bool> removeLocation(String id) async {
+    bool isSet = await _channel
         .invokeMethod('removeLocation', <String, dynamic>{"id": id});
     return isSet;
   }
 
-  static Future<bool> stopListener() async {
-    final bool isSet =
+  Future<bool> stopListener() async {
+    bool isSet =
         await _channel.invokeMethod('stopListener', <String, dynamic>{});
     return isSet;
   }
 
-  static Future<Map<String, dynamic>> getLocation(String id) async {
-    final Map<dynamic, dynamic> response =
+  Future<Map<String, dynamic>> getLocation(String id) async {
+    Map<dynamic, dynamic> response =
         await _channel.invokeMethod('getLocation', <String, dynamic>{"id": id});
 
     Map<String, dynamic> location = new Map();
@@ -54,8 +53,7 @@ class Geofire {
     return location;
   }
 
-  static Stream<dynamic> queryAtLocation(
-      double lat, double lng, double radius) {
+  Stream<dynamic> queryAtLocation(double lat, double lng, double radius) {
     _channel.invokeMethod('queryAtLocation',
         {"lat": lat, "lng": lng, "radius": radius}).then((result) {
       print("result" + result);
@@ -72,9 +70,9 @@ class Geofire {
   /*
   Update the query with the specified lat/lng and radius without the need to re-start the listner.
   */
-  static Future<bool> updateQuery(
+  Future<bool> updateQuery(
       double latitude, double longitude, double radius) async {
-    final bool isSet = await _channel.invokeMethod('updateQuery',
+    bool isSet = await _channel.invokeMethod('updateQuery',
         <String, dynamic>{"lat": latitude, "lng": longitude, "radius": radius});
     return isSet;
   }

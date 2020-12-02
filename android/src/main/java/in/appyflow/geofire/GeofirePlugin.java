@@ -30,6 +30,8 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
 
     GeoFire geoFire;
     DatabaseReference databaseReference;
+    GeoQuery geoQuery;
+    HashMap<String, Object> hashMap = new HashMap<>();
 
     private EventChannel.EventSink events;
 
@@ -99,19 +101,12 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
                 public void onLocationResult(String key, GeoLocation location) {
                     HashMap<String, Object> map = new HashMap<>();
                     if (location != null) {
-
-
                         map.put("lat", location.latitude);
                         map.put("lng", location.longitude);
                         map.put("error", null);
-
                     } else {
-
-
                         map.put("error", String.format("There is no location for key %s in GeoFire", key));
-
                     }
-
                     result.success(map);
                 }
 
@@ -129,7 +124,6 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
             geoFireArea(Double.parseDouble(call.argument("lat").toString()), Double.parseDouble(call.argument("lng").toString()), result, Double.parseDouble(call.argument("radius").toString()));
 
         } else if (call.method.equals("updateQuery")) {
-
             if(geoQuery != null){
                 double lat = Double.parseDouble(call.argument("lat").toString());
                 double lng = Double.parseDouble(call.argument("lng").toString());
@@ -144,11 +138,10 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
 
 
 
-
         } else if (call.method.equals("stopListener")) {
-
             if (geoQuery != null) {
                 geoQuery.removeAllListeners();
+                
             }
 
             result.success(true);
@@ -157,9 +150,7 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
         }
     }
 
-    GeoQuery geoQuery;
-
-    HashMap<String, Object> hashMap = new HashMap<>();
+    
 
 
     private void geoFireArea(final double latitude, double longitude, final Result result, double radius) {
