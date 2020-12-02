@@ -13,18 +13,22 @@ public class SwiftGeofirePlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
     
     
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "geofire", binaryMessenger: registrar.messenger())
-        let instance = SwiftGeofirePlugin()
+        let channelAlpha = FlutterMethodChannel(name: "geofireAlpha", binaryMessenger: registrar.messenger())
+        let eventChannelAlpha = FlutterEventChannel(name: "geofireStreamAlpha",
+                                               binaryMessenger: registrar.messenger())
         
-        let eventChannel = FlutterEventChannel(name: "geofireStream",
+        let channelBeta = FlutterMethodChannel(name: "geofireBeta", binaryMessenger: registrar.messenger())
+        let eventChannelBeta = FlutterEventChannel(name: "geofireStreamBeta",
                                                binaryMessenger: registrar.messenger())
         
         
+        let instanceAlpha = SwiftGeofirePlugin()
+        let instanceBeta = SwiftGeofirePlugin()
         
-        
-        eventChannel.setStreamHandler(instance)
-        
-        registrar.addMethodCallDelegate(instance, channel: channel)
+        eventChannelAlpha.setStreamHandler(instanceAlpha)
+        eventChannelBeta.setStreamHandler(instanceBeta)
+        registrar.addMethodCallDelegate(instanceAlpha, channel: channelAlpha)
+        registrar.addMethodCallDelegate(instanceBeta, channel: channelBeta)
         
         
     }
