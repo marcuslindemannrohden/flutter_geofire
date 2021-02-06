@@ -17,7 +17,9 @@ class Geofire {
   String onKeyMoved = "onKeyMoved";
   String onKeyExited = "onKeyExited";
 
-  Stream<dynamic> _queryAtLocation;
+  Stream<dynamic> _queryAtLocationAlpha;
+  Stream<dynamic> _queryAtLocationBeta;
+  Stream<dynamic> _queryAtLocationGama;
 
   Future<bool> initializeAlpha(String path) async {
     dynamic r = await _channelAlpha
@@ -147,10 +149,10 @@ class Geofire {
       print("Error " + error);
     });
 
-    if (_queryAtLocation == null) {
-      _queryAtLocation = _streamAlpha.receiveBroadcastStream();
+    if (_queryAtLocationAlpha == null) {
+      _queryAtLocationAlpha = _streamAlpha.receiveBroadcastStream();
     }
-    return _queryAtLocation;
+    return _queryAtLocationAlpha;
   }
 
   Stream<dynamic> queryAtLocationBeta(double lat, double lng, double radius) {
@@ -161,10 +163,10 @@ class Geofire {
       print("Error " + error);
     });
 
-    if (_queryAtLocation == null) {
-      _queryAtLocation = _streamBeta.receiveBroadcastStream();
+    if (_queryAtLocationBeta == null) {
+      _queryAtLocationBeta = _streamBeta.receiveBroadcastStream();
     }
-    return _queryAtLocation;
+    return _queryAtLocationBeta;
   }
 
   Stream<dynamic> queryAtLocationGama(double lat, double lng, double radius) {
@@ -175,10 +177,10 @@ class Geofire {
       print("Error " + error);
     });
 
-    if (_queryAtLocation == null) {
-      _queryAtLocation = _streamGama.receiveBroadcastStream();
+    if (_queryAtLocationGama == null) {
+      _queryAtLocationGama = _streamGama.receiveBroadcastStream();
     }
-    return _queryAtLocation;
+    return _queryAtLocationGama;
   }
 
   /*
