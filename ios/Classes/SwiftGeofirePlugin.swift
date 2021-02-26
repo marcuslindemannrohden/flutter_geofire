@@ -35,7 +35,7 @@ public class SwiftGeofirePlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
         eventChannelGama.setStreamHandler(instanceGama)
         registrar.addMethodCallDelegate(instanceAlpha, channel: channelAlpha)
         registrar.addMethodCallDelegate(instanceBeta, channel: channelBeta)
-        registrar.addMethodCallDelegate(instanceGama, channel: instanceGama)
+        registrar.addMethodCallDelegate(instanceGama, channel: channelGama)
         
         
     }
