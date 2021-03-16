@@ -78,6 +78,14 @@ public class GeofirePlugin implements MethodCallHandler, EventChannel.StreamHand
                 result.success(true);
             } else
                 result.success(false);
+        } else if (call.method.equals("GeoFire.startNonDefault")) {
+            databaseReference = FirebaseDatabase.getInstance(call.argument("nonDefaultUrl").toString()).getReference(call.argument("path").toString());
+            geoFire = new GeoFire(databaseReference);
+
+            if (geoFire.getDatabaseReference() != null) {
+                result.success(true);
+            } else
+                result.success(false);
         } else if (call.method.equals("setLocation")) {
 
             geoFire.setLocation(call.argument("id").toString(), new GeoLocation(Double.parseDouble(call.argument("lat").toString()), Double.parseDouble(call.argument("lng").toString())), new GeoFire.CompletionListener() {

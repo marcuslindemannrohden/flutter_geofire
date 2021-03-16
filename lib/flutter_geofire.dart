@@ -27,15 +27,36 @@ class Geofire {
     return r ?? false;
   }
 
+  Future<bool> initializeNonDefaultAlpha(
+      String path, String nonDefaultUrl) async {
+    dynamic r = await _channelAlpha.invokeMethod('GeoFire.startNonDefault',
+        <String, dynamic>{"path": path, "nonDefaultUrl": nonDefaultUrl});
+    return r ?? false;
+  }
+
   Future<bool> initializeBeta(String path) async {
     dynamic r = await _channelBeta
         .invokeMethod('GeoFire.start', <String, dynamic>{"path": path});
     return r ?? false;
   }
 
+  Future<bool> initializeNonDefaultBeta(
+      String path, String nonDefaultUrl) async {
+    dynamic r = await _channelBeta.invokeMethod('GeoFire.startNonDefault',
+        <String, dynamic>{"path": path, "nonDefaultUrl": nonDefaultUrl});
+    return r ?? false;
+  }
+
   Future<bool> initializeGama(String path) async {
     dynamic r = await _channelGama
         .invokeMethod('GeoFire.start', <String, dynamic>{"path": path});
+    return r ?? false;
+  }
+
+  Future<bool> initializeNonDefaultGama(
+      String path, String nonDefaultUrl) async {
+    dynamic r = await _channelGama.invokeMethod('GeoFire.startNonDefault',
+        <String, dynamic>{"path": path, "nonDefaultUrl": nonDefaultUrl});
     return r ?? false;
   }
 
