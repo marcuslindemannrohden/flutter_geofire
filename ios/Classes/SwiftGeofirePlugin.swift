@@ -59,7 +59,7 @@ public class SwiftGeofirePlugin: NSObject, FlutterPlugin, FlutterStreamHandler {
         else if(call.method.elementsEqual("GeoFire.startNonDefault")){
             let path = arguements!["path"] as! String
             let nonDefaultUrl = arguements!["nonDefaultUrl"] as! String
-            geoFireRef = Database.database(nonDefaultUrl).reference().child(path)
+            geoFireRef = Database.database(url: nonDefaultUrl).reference().child(path)
             geoFire = GeoFire(firebaseRef: geoFireRef!)
             result(true)
         }
